@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antrian</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	
+    <header>
+		<img src="pustaka/LOGO-RSUDMA.png" alt="Logo" width="100">
+        <a><b>RSUD Dr. MOH. ANWAR<br/>
+            SUMENEP</b>
+        </a>
+        <p><b>NOMOR ANTRIAN:</b></p>
+    </header>
+	<h2 id="poli"></h2>
+	<h1 id="antrian"><b></b></h1>
+    <script src="js/socketio.js"></script>
+	<audio id="notificationSound" autoplay preload="auto"></audio>
+
+    <script>
+        const socket = io('http://192.168.34.211:3000', { transports: ['websocket'] });
+		const audioElement = document.getElementById('notificationSound');
+
+        socket.on('message', function(data) {
+            if (data.namapoli == 'Hemodialisa') {
+				document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'IRD') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Anak') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Bedah') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Fisiotherapy') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Gilut') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Gizi') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Interne') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli KUK') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Mata') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Obsgyn') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Syaraf') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli THT') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Umum') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Jiwa dan Psikiater') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli VCT') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Paru') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Kulit Dan Kelamin') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Jantung') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Onkologi') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Orthopedi') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Kemoterapi') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Gigi Periodonti') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Gigi Endodonsi') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }else if (data.namapoli == 'Poli Gigi Pedodontis') {
+                document.getElementById('poli').textContent = data.namapoli; 
+				document.getElementById('antrian').textContent = data.nomorAntrian;
+				
+            }
+			
+			const patientName = data.patientName;
+			const namapoli = data.namapoli;
+			const nomorAntrian = data.nomorAntrian;
+
+			const teksAntrian = `${namapoli}, Nomor antrian ${nomorAntrian}, Atas nama ${patientName}`;
+
+			playTextToSpeech(teksAntrian);
+        });
+		
+		function playTextToSpeech(text) {
+			if (!isNaN(text)) {
+				text = numberToWords(text);
+			}
+
+			if ('speechSynthesis' in window) {
+				var synthesis = window.speechSynthesis;
+
+				var utterance = new SpeechSynthesisUtterance(text);
+
+				utterance.lang = 'id-ID';
+
+				var voices = synthesis.getVoices();
+				var maleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.gender === 'female');
+				if (maleVoice) {
+					utterance.voice = maleVoice;
+				}
+
+				synthesis.speak(utterance);
+			} else {
+				alert('Maaf, browser Anda tidak mendukung SpeechSynthesis API.');
+			}
+		}
+		
+		function numberToWords(number) {
+			var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
+			var result = '';
+
+			var digits = number.toString().split('').map(Number);
+
+			for (var i = 0; i < digits.length; i++) {
+				result += words[digits[i]] + ' ';
+			}
+
+			return result.trim();
+		}
+
+		
+    </script>
+
+    <footer>
+        <p><b>Kami Ada Untuk Anda</b></p>
+    </footer>
+	
+	<video autoplay muted loop id="video-footer">
+        <source src="pustaka/video-layanan.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</body>
+</html>
