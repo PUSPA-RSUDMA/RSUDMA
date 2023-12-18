@@ -51,6 +51,9 @@
 				var utterance = new SpeechSynthesisUtterance(text);
 
 				utterance.lang = 'id-ID';
+				
+				utterance.pitch = 1; 
+				utterance.volume = 1;
 
 				var voices = synthesis.getVoices();
 				var maleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.gender === 'female');
