@@ -28,6 +28,7 @@
             if (data.namapoli == 'PUSPA INEF') {
 				document.getElementById('poli').textContent = data.namapoli; 
 				document.getElementById('antrian').textContent = data.nomorAntrian;
+				document.getElementById('dataPatient').textContent = data.dataPatient;
 				
             }
 			
@@ -84,7 +85,7 @@
     </script>
 
     <footer>
-        <p><b>Kami Ada Untuk Anda</b></p>
+        <p><b>Jumlah Pasien : <span id="dataPatient"></span></b></p>
     </footer>
 	
 	<video autoplay muted loop id="video-footer">
