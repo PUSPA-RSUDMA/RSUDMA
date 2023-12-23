@@ -55,10 +55,10 @@
 				
 				utterance.pitch = 1.5; 
 				utterance.volume = 0.9;
-
+				
 				var voices = synthesis.getVoices();
-				var femaleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.gender === 'female');
-				console.log(voices);
+				var femaleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name === 'Google Bahasa Indonesia' && voice.gender === 'female');
+				console.log(voices); 
 				if (femaleVoice) {
 					utterance.voice = femaleVoice;
 				} else {
