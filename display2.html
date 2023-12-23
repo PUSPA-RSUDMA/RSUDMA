@@ -60,7 +60,7 @@
 				var femaleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name === 'Google Bahasa Indonesia' && voice.gender === 'female');
 				console.log(voices); 
 				if (femaleVoice) {
-					utterance.voice = femaleVoice;
+					utterance.voice = femaleVoice; 
 				} else {
 					console.log("Suara perempuan tidak ditemukan.");
 				}
