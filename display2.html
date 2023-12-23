@@ -15,8 +15,9 @@
         </a>
         <p><b>NOMOR ANTRIAN:</b></p>
     </header>
-	<h2 id="poli"></h2>
-	<h1 id="antrian"><b></b></h1>
+	<h2 id="poli">POLI</h2>
+	<h1 id="antrian"><b>ANTRIAN</b></h1>
+	<p><b>Jumlah Pasien : <span id="dataPatient"></span></b></p>
     <script src="js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
 
@@ -29,6 +30,8 @@
 				document.getElementById('poli').textContent = data.namapoli; 
 				document.getElementById('antrian').textContent = data.nomorAntrian;
 				document.getElementById('dataPatient').textContent = data.dataPatient;
+				document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
+				document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
 				
             }
 			
@@ -53,11 +56,11 @@
 
 				utterance.lang = 'id-ID';
 				
-				utterance.pitch = 1.5; 
+				utterance.pitch = 1; 
 				utterance.volume = 0.9;
 				
 				var voices = synthesis.getVoices();
-				var femaleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name === 'Google Bahasa Indonesia' && voice.gender === 'female');
+				var femaleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.gender === 'female');
 				console.log(voices); 
 				if (femaleVoice) {
 					utterance.voice = femaleVoice; 
@@ -88,7 +91,8 @@
     </script>
 
     <footer>
-        <p><b>Jumlah Pasien : <span id="dataPatient"></span></b></p>
+		<p><b>Jumlah Pasien Dilayani : <span id="dataPatientDone"></span></b></p>
+		<p><b>Jumlah Pasien Blom Dilayani: <span id="dataPatientNoDone"></span></b></p>
     </footer>
 	
 	<video autoplay muted loop id="video-footer">
