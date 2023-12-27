@@ -37,18 +37,18 @@ header a {
 }
 
 h1 {
-    font-size: 310px;
+    font-size: 500px;
     margin: 0px 0;
 }
 
 h2 {
     font-size: 90px;
-    margin: 0px 0;
+    margin: 10px 0;
 }
 
 p {
-    font-size: 30px;
-    margin: 0 0 10px 0;
+    font-size: 50px;
+    margin: 0 0 15px 0;
 }
 
 footer {
@@ -64,7 +64,7 @@ footer {
 footer p {
     display: inline-block;
     margin: 0 200px;
-	font-size: 20px;
+	font-size: 30px;
 }
 
 
