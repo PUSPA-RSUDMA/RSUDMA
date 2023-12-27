@@ -25,8 +25,8 @@
 		const audioElement = document.getElementById('notificationSound');
 
         socket.on('message', function(data) {
-            if (data.namapoli == 'PUSPA INEF') {
-				document.getElementById('poli').textContent = data.namapoli; 
+            if (data.namapoli == 'Poli Obsgyn') {
+                document.getElementById('poli').textContent = data.namapoli; 
 				document.getElementById('antrian').textContent = data.nomorAntrian;
 				document.getElementById('dataPatient').textContent = data.dataPatient;
 				document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
