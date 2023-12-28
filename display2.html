@@ -9,14 +9,13 @@
 <body>
 	
     <header>
-		
         <a><b>RSUD Dr. MOH. ANWAR</b></a>
-		<img src="pustaka/LOGO-RSUDMA.png" alt="Logo" width="110">
+		<img src="pustaka/LOGO-RSUDMA.png" alt="Logo" width="150">
         <p><b>KABUPATEN SUMENEP</b></p>
     </header>
 	<h2 id="poli">Poli Kulit Dan Kelamin</h2>
-	<h1 id="antrian"><b>A-5</b></h1>
-	<p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
+	<h1 id="antrian"><b>$-10</b></h1>
+	<p><b>JUMLAH PASIEN : <span id="dataPatient">10</span></b></p>
     <script src="js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
 
@@ -25,8 +24,8 @@
 		const audioElement = document.getElementById('notificationSound');
 
         socket.on('message', function(data) {
-            if (data.namapoli == 'PUSPA INEF') {
-				document.getElementById('poli').textContent = data.namapoli; 
+            if (data.namapoli == 'Puspa Inev') {
+				document.getElementById('poli').textContent = data.namapoli.toUpperCase();
 				document.getElementById('antrian').textContent = data.nomorAntrian;
 				document.getElementById('dataPatient').textContent = data.dataPatient;
 				document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
@@ -93,10 +92,18 @@
 		<p><b>TELAH DILAYANI : <span id="dataPatientDone"></span></b></p>
 		<p><b>BELOM DILAYANI : <span id="dataPatientNoDone"></span></b></p>
     </footer>
+	<hr color="black">
+	<footer>
+		<p><b>VIDEO LAYANAN</b></p>
+    </footer>
 	
 	<video autoplay muted loop id="video-footer">
         <source src="pustaka/video-layanan.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+	
+	<footer>
+		<p><b>KAMI ADA UNTUK ANDA</b></p>
+    </footer>
 </body>
 </html>

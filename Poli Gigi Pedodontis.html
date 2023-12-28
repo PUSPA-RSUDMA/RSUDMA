@@ -14,8 +14,8 @@
 		<img src="pustaka/LOGO-RSUDMA.png" alt="Logo" width="110">
         <p><b>KABUPATEN SUMENEP</b></p>
     </header>
-	<h2 id="poli">POLI</h2>
-	<h1 id="antrian"><b>A-100</b></h1>
+	<h2 id="poli">POLI GIGI PEDODONTIS</h2>
+	<h1 id="antrian"><b>G-0</b></h1>
 	<p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
     <script src="js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
@@ -26,7 +26,7 @@
 
         socket.on('message', function(data) {
             if (data.namapoli == 'Poli Gigi Pedodontis') {
-                document.getElementById('poli').textContent = data.namapoli; 
+                document.getElementById('poli').textContent = data.namapoli.toUpperCase(); ; 
 				document.getElementById('antrian').textContent = data.nomorAntrian;
 				document.getElementById('dataPatient').textContent = data.dataPatient;
 				document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
@@ -93,10 +93,18 @@
 		<p><b>TELAH DILAYANI : <span id="dataPatientDone"></span></b></p>
 		<p><b>BELOM DILAYANI : <span id="dataPatientNoDone"></span></b></p>
     </footer>
+	<hr color="black">
+	<footer>
+		<p><b>VIDEO LAYANAN</b></p>
+    </footer>
 	
 	<video autoplay muted loop id="video-footer">
         <source src="pustaka/video-layanan.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+	<footer>
+		<p><b>KAMI ADA UNTUK ANDA</b></p>
+    </footer>
 </body>
 </html>
