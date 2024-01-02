@@ -65,11 +65,11 @@
                 var voices = synthesis.getVoices();
                 const microsoftVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Microsoft'));
                 const googleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Google'));
-
-                if (microsoftVoice) {
-                    utterance.voice = microsoftVoice;
-                } else if (googleVoice) {
+                
+                if (googleVoice) {
                     utterance.voice = googleVoice;
+                } else if (microsoftVoice) {
+                    utterance.voice = microsoftVoice;
                 } else {
                     console.error('Suara Microsoft atau Google bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
                 }
