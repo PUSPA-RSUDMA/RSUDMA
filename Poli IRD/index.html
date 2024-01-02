@@ -15,8 +15,11 @@
         <p><b>KABUPATEN SUMENEP</b></p>
     </header>
     <h2><span id="namaPoli"></span></h2>
-	<h1 id="antrian"><b>-</b></h1>
-	<p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
+	<h1 id="antrian"><b>I</b></h1>
+    <div class="flex-container">
+        <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDone"></span></b></p>
+        <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDone"></span></b></p>
+    </div>
     <script src="../js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
     <h2><span id="namaPoli"></span></h2>
@@ -90,21 +93,19 @@
     </script>
 
     <footer>
-        <p><b>TELAH DILAYANI : <span id="dataPatientDone"></span></b></p>
-        <p><b>BELUM DILAYANI : <span id="dataPatientNoDone"></span></b></p>
-    </footer>
-    <hr color="black">
-    <footer>
+        <p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
+        <hr color="black">
         <p><b>VIDEO LAYANAN</b></p>
     </footer>
+    <hr color="black">
 
     <video autoplay muted loop id="video-footer">
         <source src="../pustaka/video-layanan.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <footer>
+    <header>
         <p><b>KAMI ADA UNTUK ANDA</b></p>
-    </footer>
+    </header>
 </body>
 </html>
