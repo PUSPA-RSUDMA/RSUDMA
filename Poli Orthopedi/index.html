@@ -10,9 +10,9 @@
 <body>
 	
     <header>
-        <a><b>RSUD Dr. MOH. ANWAR</b></a>
-		<img src="../pustaka/LOGO-RSUDMA.png" alt="Logo" width="150">
-        <p><b>KABUPATEN SUMENEP</b></p>
+        <a><b>RSUD Dr. H. MOH. ANWAR</b></a>
+		<img src="../pustaka/LOGO-RSUDMA.png" alt="Logo" width="120">
+        <p><b>KABUPATEN SUMENEP !!!</b></p>
     </header>
     <h2><span id="namaPoli"></span></h2>
 	<h1 id="antrian"><b>I</b></h1>
@@ -22,7 +22,6 @@
     </div>
     <script src="../js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
-    <h2><span id="namaPoli"></span></h2>
     
     <script>
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
@@ -64,12 +63,15 @@
                 utterance.volume = 1;
 
                 var voices = synthesis.getVoices();
-                var googleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Google'));
-
+                const microsoftVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Microsoft'));
+                const googleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Google'));
+                
                 if (googleVoice) {
                     utterance.voice = googleVoice;
+                } else if (microsoftVoice) {
+                    utterance.voice = microsoftVoice;
                 } else {
-                    console.error('Suara Google bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
+                    console.error('Suara Microsoft atau Google bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
                 }
 
                 synthesis.speak(utterance);
