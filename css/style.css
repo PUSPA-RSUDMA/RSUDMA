@@ -3,7 +3,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     background: #000000; 
     color: #fff;
     position: absolute;
@@ -20,6 +19,7 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+    border-radius: 0 0 50% 50%;
 }
 
 
@@ -47,9 +47,14 @@ h2 {
     margin: 50px 0 20px 0;
 }
 
-p {
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.data-paragraph {
     font-size: 60px;
-    margin: 100px 0 10px 0;
+    margin: 0px 50px 0px 50px ; /* Adjust the values as needed */
 }
 
 footer {
@@ -60,11 +65,11 @@ footer {
     background-color: #008d4c;
     color: white;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 50% 50% 0 0;
 }
 
 footer p {
-    display: inline-block;
-    margin: 0 250px;
+    margin: 20px 0 0 0;
 	font-size: 50px;
 }
 
