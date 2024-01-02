@@ -24,27 +24,25 @@ header {
 
 
 header p {
-    font-size: 60px;
+    font-size: 30px;
     right: 0;
-    margin: 0px 20px 0 10px;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 header a {
-	font-size: 60px;
+	font-size: 30px;
     left: 0;
-    margin: 0 20px 0 0;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
-    font-size: 550px;
-    margin: 50px 0;
+    font-size: 450px;
+    margin: 0px 0;
 }
 
 h2 {
-    font-size: 120px;
-    margin: 50px 0 20px 0;
+    font-size: 80px;
+    margin: 30px 0 0px 0;
 }
 
 .flex-container {
@@ -53,8 +51,8 @@ h2 {
 }
 
 .data-paragraph {
-    font-size: 60px;
-    margin: 0px 50px 0px 50px ; 
+    font-size: 40px;
+    margin: 0px 50px 10px 50px ; 
 }
 
 footer {
@@ -70,7 +68,7 @@ footer {
 
 footer p {
     margin: 20px 0 0 0;
-	font-size: 50px;
+	font-size: 30px;
 }
 
 
