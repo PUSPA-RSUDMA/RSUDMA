@@ -28,15 +28,12 @@
         const socket = io(dataIp.ip, { transports: ['websocket'] });
 		const audioElement = document.getElementById('notificationSound');
 
-        window.speechSynthesis.onvoiceschanged = function () {
-            socket.on('message', function (data) {
-                if (data.namapoli == dataIp.namaPoli) {
-                    document.getElementById('antrian').textContent = data.nomorAntrian;
-                    document.getElementById('dataPatient').textContent = data.dataPatient;
-                    document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
-                    document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
-                    
-                }
+        socket.on('message', function (data) {
+            if (data.namapoli == dataIp.namaPoli) {
+                document.getElementById('antrian').textContent = data.nomorAntrian;
+                document.getElementById('dataPatient').textContent = data.dataPatient;
+                document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
+                document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
@@ -45,8 +42,11 @@
                 const teksAntrian = `${namapoli}. Nomor antrian ${nomorAntrian}. Atas nama ${patientName}`;
 
                 playTextToSpeech(teksAntrian);
-            });
-        };
+                
+            }
+
+            
+        });
 
         function playTextToSpeech(text) {
             if (!isNaN(text)) {
