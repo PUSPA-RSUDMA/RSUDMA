@@ -36,8 +36,8 @@ header a {
 }
 
 h1 {
-    font-size: 450px;
-    margin: 0px 0;
+    font-size: 350px;
+    margin: 50px 0;
 }
 
 h2 {
@@ -52,7 +52,7 @@ h2 {
 
 .data-paragraph {
     font-size: 40px;
-    margin: 0px 50px 10px 50px ; 
+    margin: 30px 10px 20px 10px ; 
 }
 
 footer {
