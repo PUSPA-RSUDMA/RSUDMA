@@ -9,13 +9,20 @@
 </head>
 <body>
 	
-    <header>
+    <header class="background-header">
         <a><b>RSUD Dr. H. MOH. ANWAR</b></a>
 		<img src="../pustaka/LOGO-RSUDMA.png" alt="Logo" width="120">
-        <p><b>KABUPATEN SUMENEP !!!</b></p>
+        <a><b>KABUPATEN SUMENEP !!!</b></a>
     </header>
+    <hr color="black">
+    <hr color="black">
+    <hr color="black">
+    <header>
+        <p><b>PASIEN KONTROL</b></p>
+    </header>
+
     <h2><span id="namaPoli"></span></h2>
-	<h1 id="antrian"><b>I</b></h1>
+	<h1 id="antrian"><b>A-300</b></h1>
     <div class="flex-container">
         <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDone"></span></b></p>
         <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDone"></span></b></p>
@@ -29,7 +36,8 @@
 		const audioElement = document.getElementById('notificationSound');
 
         socket.on('message', function (data) {
-            if (data.namapoli == dataIp.namaPoli) {
+            if (data.namapoli == dataIp.namaPoli && data.status == 'kontrol') {
+                console.error('========================== kontrol ===========================');
                 document.getElementById('antrian').textContent = data.nomorAntrian;
                 document.getElementById('dataPatient').textContent = data.dataPatient;
                 document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
@@ -43,6 +51,20 @@
 
                 playTextToSpeech(teksAntrian);
                 
+            }else if(data.namapoli == dataIp.namaPoli && data.status == 'rujuk'){
+                console.error('========================== rujuk ===========================');
+                document.getElementById('antrianRujuk').textContent = data.nomorAntrian;
+                document.getElementById('dataPatientRujuk').textContent = data.dataPatient;
+                document.getElementById('dataPatientDoneRujuk').textContent = data.dataPatientDone;
+                document.getElementById('dataPatientNoDoneRujuk').textContent = data.dataPatientNoDone;
+
+                const patientName = data.patientName;
+                const namapoli = data.namapoli;
+                const nomorAntrian = data.nomorAntrian;
+
+                const teksAntrian = `Rujukan : ${namapoli}. Nomor antrian ${nomorAntrian}. Atas nama ${patientName}`;
+
+                playTextToSpeech(teksAntrian);
             }
 
             
@@ -96,18 +118,24 @@
 
     <footer>
         <p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
-        <hr color="black">
-        <p><b>VIDEO LAYANAN</b></p>
     </footer>
     <hr color="black">
-
-    <video autoplay muted loop id="video-footer">
-        <source src="../pustaka/video-layanan.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
+    <hr color="black">
+    <hr color="black">
     <header>
-        <p><b>KAMI ADA UNTUK ANDA</b></p>
+        <p><b>PASIEN RUJUKAN</b></p>
     </header>
+
+    <h2><span id="namaPoliRujuk"></span></h2>
+	<h1 id="antrianRujuk"><b>A-300</b></h1>
+    <div class="flex-container">
+        <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDoneRujuk"></span></b></p>
+        <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDoneRujuk"></span></b></p>
+    </div>
+	<audio id="notificationSound" autoplay preload="auto"></audio>
+
+    <footer>
+        <p><b>JUMLAH PASIEN RUJUKAN : <span id="dataPatientRujuk"></span></b></p>
+    </footer>
 </body>
 </html>
