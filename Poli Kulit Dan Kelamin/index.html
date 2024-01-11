@@ -8,7 +8,7 @@
     <script src="config.js"></script>
 </head>
 <body>
-	
+	<!--KONTROL-->
     <header class="background-header">
         <a><b>RSUD Dr. H. MOH. ANWAR</b></a>
 		<img src="../pustaka/LOGO-RSUDMA.png" alt="Logo" width="120">
@@ -29,7 +29,31 @@
     </div>
     <script src="../js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
-    
+    <footer>
+        <p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
+    </footer>
+
+    <!--RUJUKAN-->
+    <hr color="black">
+    <hr color="black">
+    <hr color="black">
+    <header>
+        <p><b>PASIEN RUJUKAN</b></p>
+    </header>
+
+    <h2><span id="namaPoliRujuk"></span></h2>
+	<h1 id="antrianRujuk"><b>A-300</b></h1>
+    <div class="flex-container">
+        <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDoneRujuk"></span></b></p>
+        <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDoneRujuk"></span></b></p>
+    </div>
+	<audio id="notificationSound" autoplay preload="auto"></audio>
+
+    <footer>
+        <p><b>JUMLAH PASIEN RUJUKAN : <span id="dataPatientRujuk"></span></b></p>
+    </footer>
+
+
     <script>
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
         const socket = io(dataIp.ip, { transports: ['websocket'] });
@@ -115,27 +139,5 @@
             return result.trim();
         }
     </script>
-
-    <footer>
-        <p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
-    </footer>
-    <hr color="black">
-    <hr color="black">
-    <hr color="black">
-    <header>
-        <p><b>PASIEN RUJUKAN</b></p>
-    </header>
-
-    <h2><span id="namaPoliRujuk"></span></h2>
-	<h1 id="antrianRujuk"><b>A-300</b></h1>
-    <div class="flex-container">
-        <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDoneRujuk"></span></b></p>
-        <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDoneRujuk"></span></b></p>
-    </div>
-	<audio id="notificationSound" autoplay preload="auto"></audio>
-
-    <footer>
-        <p><b>JUMLAH PASIEN RUJUKAN : <span id="dataPatientRujuk"></span></b></p>
-    </footer>
 </body>
 </html>
