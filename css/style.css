@@ -35,12 +35,16 @@ header a {
 
 h1 {
     font-size: 300px;
-    margin: 50px 0;
+    margin: 50px 0 0px 0;
 }
 
 h2 {
     font-size: 60px;
     margin: 30px 0 0px 0;
+}
+
+h3 {
+    font-size: 40px;
 }
 
 .flex-container {
@@ -50,7 +54,7 @@ h2 {
 
 .data-paragraph {
     font-size: 40px;
-    margin: 30px 10px 20px 10px ; 
+    margin: 0px 10px 20px 10px ; 
 }
 
 footer {
@@ -76,8 +80,16 @@ hr {
 }
 
 .background-header {
-    background-color: #ffd700; /* Warna latar belakang header */
-    border-radius: 0px; /* Sudut melengkung untuk membuat tampilan kotak */
-    text-align: center; /* Posisi teks di tengah header */
+    background-color: #FF4500; 
+    border-radius: 0px;
+    text-align: center; 
     padding: 5px; 
+}
+
+.background-header-rujuk {
+    background-color: #3CB371; 
+}
+
+.background-footer-rujuk {
+    background-color: #3CB371; 
 }

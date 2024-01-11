@@ -18,11 +18,12 @@
     <hr color="black">
     <hr color="black">
     <header>
-        <p><b>PASIEN KONTROL</b></p>
+    <p><b>PASIEN RUJUK ATAU KONTROL</b></p>
     </header>
 
     <h2><span id="namaPoli"></span></h2>
 	<h1 id="antrian"><b>A-300</b></h1>
+    <h3><b>Nama : <span id="dataPatientName"></span></b></h3>
     <div class="flex-container">
         <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDone"></span></b></p>
         <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDone"></span></b></p>
@@ -30,32 +31,34 @@
     <script src="../js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
     <footer>
-        <p><b>JUMLAH PASIEN : <span id="dataPatient"></span></b></p>
+        <p><b>JUMLAH PASIEN RUJUK ATAU KONTROL : <span id="dataPatient"></span></b></p>
     </footer>
 
     <!--RUJUKAN-->
     <hr color="black">
     <hr color="black">
     <hr color="black">
-    <header>
-        <p><b>PASIEN RUJUKAN</b></p>
+    <header class="background-header-rujuk">
+        <p><b>PASIEN KONSUL POLI</b></p>
     </header>
 
     <h2><span id="namaPoliRujuk"></span></h2>
 	<h1 id="antrianRujuk"><b>A-300</b></h1>
+    <h3><b>Nama : <span id="dataPatientNameRujuk"></span></b></h3>
     <div class="flex-container">
         <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDoneRujuk"></span></b></p>
         <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDoneRujuk"></span></b></p>
     </div>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
 
-    <footer>
-        <p><b>JUMLAH PASIEN RUJUKAN : <span id="dataPatientRujuk"></span></b></p>
+    <footer class="background-footer-rujuk">
+        <p><b>JUMLAH PASIEN KONSUL POLI : <span id="dataPatientRujuk"></span></b></p>
     </footer>
 
 
     <script>
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
+        document.getElementById('namaPoliRujuk').textContent = dataIp.namaPoli.toUpperCase();
         const socket = io(dataIp.ip, { transports: ['websocket'] });
 		const audioElement = document.getElementById('notificationSound');
 
@@ -66,6 +69,7 @@
                 document.getElementById('dataPatient').textContent = data.dataPatient;
                 document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
                 document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
+                document.getElementById('dataPatientName').textContent = data.patientName;
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
@@ -81,6 +85,7 @@
                 document.getElementById('dataPatientRujuk').textContent = data.dataPatient;
                 document.getElementById('dataPatientDoneRujuk').textContent = data.dataPatientDone;
                 document.getElementById('dataPatientNoDoneRujuk').textContent = data.dataPatientNoDone;
+                document.getElementById('dataPatientNameRujuk').textContent = data.patientName;
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
