@@ -10,15 +10,16 @@
 <body>
 	<!--KONTROL-->
     <header class="background-header">
-        <a><b>RSUD Dr. H. MOH. ANWAR</b></a>
+        <a><b>RSUD Dr. H. MOH. ANWAR </b></a>
 		<img src="../pustaka/LOGO-RSUDMA.png" alt="Logo" width="120">
-        <a><b>KABUPATEN SUMENEP !!!</b></a>
+        <a><b> KABUPATEN SUMENEP !!!</b></a>
     </header>
     <hr color="black">
     <hr color="black">
     <hr color="black">
     <header>
     <p><b>PASIEN RUJUK ATAU KONTROL</b></p>
+    <!-- <img src="../pustaka/text-header.png" alt="Logo" width="600"> -->
     </header>
 
     <h2><span id="namaPoli"></span></h2>
@@ -69,7 +70,7 @@
                 document.getElementById('dataPatient').textContent = data.dataPatient;
                 document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
                 document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
-                document.getElementById('dataPatientName').textContent = data.patientName;
+                document.getElementById('dataPatientName').textContent = data.patientName.toUpperCase();
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
@@ -85,7 +86,7 @@
                 document.getElementById('dataPatientRujuk').textContent = data.dataPatient;
                 document.getElementById('dataPatientDoneRujuk').textContent = data.dataPatientDone;
                 document.getElementById('dataPatientNoDoneRujuk').textContent = data.dataPatientNoDone;
-                document.getElementById('dataPatientNameRujuk').textContent = data.patientName;
+                document.getElementById('dataPatientNameRujuk').textContent = data.patientName.toUpperCase();
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
