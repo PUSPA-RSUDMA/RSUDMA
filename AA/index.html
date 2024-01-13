@@ -1,65 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antrian</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="config.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/style.css">
+	<title>Display Antrian</title>
+	<script src="config.js"></script>
 </head>
 <body>
-	<!--KONTROL-->
-    <header class="background-header">
-        <a><b>RSUD Dr. H. MOH. ANWAR </b></a>
-		<img src="../pustaka/LOGO-RSUDMA.png" alt="Logo" width="120">
-        <a><b> KABUPATEN SUMENEP !!!</b></a>
-    </header>
-    <hr color="black">
-    <hr color="black">
-    <hr color="black">
-    <header>
-    <p><b>PASIEN RUJUK ATAU KONTROL</b></p>
-    <!-- <img src="../pustaka/text-header.png" alt="Logo" width="600"> -->
-    </header>
+	<header class="header">
+		<img src="../pustaka/LOGO-RSUDMA.png" alt="Hospital Logo">
+		<div class="header-text">
+			<h1 class="hospital-name">RSUD Dr. H. Moh. Anwar</h1>
+			<p class="location">KABUPATEN SUMENEP</p>
+			<hr>
+			<h2><span id="namaPoli"></span></h2>
+		</div>
+	</header>
 
-    <h2><span id="namaPoli"></span></h2>
-	<h1 id="antrian"><b>A-300</b></h1>
-    <h3><b>Nama : <span id="dataPatientName"></span></b></h3>
-    <div class="flex-container">
-        <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDone"></span></b></p>
-        <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDone"></span></b></p>
-    </div>
-    <script src="../js/socketio.js"></script>
+	<div class="queue-display queue1" id="queue1">
+		<h3>Pasien Rujuk Atau Kontrol</h3>
+		<hr>
+		<div class="queue-number" id="antrian">001</div>
+			<div class="queue-info">
+				<p class="text-pasien">Nama Pasien : <span id="dataPatientName"></span></p>
+				<hr>
+				<div class="flex-container">
+					<div class="data-box">
+						<p class="data-paragraph">Telah Dilayani : <span id="dataPatientDone"></span></p>
+					</div>
+					<div class="data-box2">
+						<p class="data-paragraph">Belum Dilayani : <span id="dataPatientNoDone"></span></p>
+					</div>
+				</div>
+				<div class="data-box3">
+					<p>Jumlah Pasien : <span id="dataPatient"></span></p>
+				</div>
+			</div>
+    	</div>
+  	</div>
+
+	<div class="queue-display queue2" id="queue2">
+    	<h3>Pasien Pasien Konsul Poli</h3>
+		<hr>
+    	<div class="queue-number" id="antrianRujuk">001</div>
+    		<div class="queue-info">
+      			<p class="text-pasien">Nama Pasien : <span id="dataPatientNameRujuk"></span></p>
+	  			<hr>
+	  			<div class="flex-container">
+					<div class="data-box">
+						<p class="data-paragraph">Telah Dilayani : <span id="dataPatientDoneRujuk"></span></p>
+					</div>
+					<div class="data-box2">
+						<p class="data-paragraph">Belum Dilayani : <span id="dataPatientNoDoneRujuk"></span></p>
+					</div>
+				</div>
+				<div class="data-box3">
+					<p>Jumlah Pasien : <span id="dataPatientRujuk"></span></p>
+				</div>
+    		</div>
+   		</div>
+  	</div>
+
+	<script src="../js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
-    <footer>
-        <p><b>JUMLAH PASIEN RUJUK ATAU KONTROL : <span id="dataPatient"></span></b></p>
-    </footer>
 
-    <!--RUJUKAN-->
-    <hr color="black">
-    <hr color="black">
-    <hr color="black">
-    <header class="background-header-rujuk">
-        <p><b>PASIEN KONSUL POLI</b></p>
-    </header>
-
-    <h2><span id="namaPoliRujuk"></span></h2>
-	<h1 id="antrianRujuk"><b>A-300</b></h1>
-    <h3><b>Nama : <span id="dataPatientNameRujuk"></span></b></h3>
-    <div class="flex-container">
-        <p class="data-paragraph"><b>TELAH DILAYANI : <span id="dataPatientDoneRujuk"></span></b></p>
-        <p class="data-paragraph"><b>BELUM DILAYANI : <span id="dataPatientNoDoneRujuk"></span></b></p>
-    </div>
-	<audio id="notificationSound" autoplay preload="auto"></audio>
-
-    <footer class="background-footer-rujuk">
-        <p><b>JUMLAH PASIEN KONSUL POLI : <span id="dataPatientRujuk"></span></b></p>
-    </footer>
-
-
-    <script>
+	<script>
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
-        document.getElementById('namaPoliRujuk').textContent = dataIp.namaPoli.toUpperCase();
         const socket = io(dataIp.ip, { transports: ['websocket'] });
 		const audioElement = document.getElementById('notificationSound');
 
