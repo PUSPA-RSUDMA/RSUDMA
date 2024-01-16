@@ -21,7 +21,7 @@
 	<div class="queue-display queue1" id="queue1">
 		<h3>Pasien Rujuk Atau Kontrol</h3>
 		<hr>
-		<div class="queue-number" id="antrian">A-001</div>
+		<div class="queue-number" id="antrian">000</div>
 			<div class="queue-info">
 				<p class="text-pasien"><span id="dataPatientName"></span></p>
 				<hr>
@@ -43,7 +43,7 @@
 	<div class="queue-display queue2" id="queue2">
     	<h3>Pasien Pasien Konsul Poli</h3>
 		<hr>
-    	<div class="queue-number" id="antrianRujuk">A-001</div>
+    	<div class="queue-number" id="antrianRujuk">000</div>
     		<div class="queue-info">
       			<p class="text-pasien"><span id="dataPatientNameRujuk"></span></p>
 	  			<hr>
@@ -81,9 +81,10 @@
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
-                const nomorAntrian = data.nomorAntrian;
+                const nomorAntrian = data.nomorAntrian.split('-');
+                const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}. Nomor antrian ${nomorAntrian}.. Atas nama ${patientName}`;
+                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. Atas nama ${patientName}`;
 
                 playTextToSpeech(teksAntrian);
                 
@@ -97,9 +98,10 @@
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
-                const nomorAntrian = data.nomorAntrian;
+                const nomorAntrian = data.nomorAntrian.split('-');
+                const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}.. Nomor antrian ${nomorAntrian}.. Atas nama ${patientName}`;
+                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. Atas nama ${patientName}`;
 
                 playTextToSpeech(teksAntrian);
             }
