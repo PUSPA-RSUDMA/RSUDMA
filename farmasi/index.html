@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/style.css">
+	<title>Display Antrian</title>
+	<script src="config.js"></script>
+</head>
+<body>
+	<header class="header">
+		<img src="../pustaka/LOGO-RSUDMA.png" alt="Hospital Logo">
+		<div class="header-text">
+			<h1 class="hospital-name">RSUD Dr. H. Moh. Anwar</h1>
+			<p class="location">KABUPATEN SUMENEP</p>
+			<hr>
+			<h2><span id="namaPoli"></span></h2>
+		</div>
+	</header>
+
+	<div class="queue-display queue1" id="queue1">
+		<h3>Pasien Farmasi</h3>
+		<hr>
+		<div class="queue-number" id="antrian">000</div>
+			<div class="queue-info">
+				<p class="text-pasien"><span id="dataPatientName"></span></p>
+				<hr>
+				<div class="flex-container">
+					<div class="data-box">
+						<p class="data-paragraph">Telah Dilayani : <span id="dataPatientDone"></span></p>
+					</div>
+					<div class="data-box2">
+						<p class="data-paragraph">Belum Dilayani : <span id="dataPatientNoDone"></span></p>
+					</div>
+				</div>
+				<div class="data-box3">
+					<p>Jumlah Pasien : <span id="dataPatient"></span></p>
+				</div>
+			</div>
+    	</div>
+  	</div>
+
+	<script src="../js/socketio.js"></script>
+	<audio id="notificationSound" autoplay preload="auto"></audio>
+
+	<script>
+        document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
+        const socket = io(dataIp.ip, { transports: ['websocket'] });
+		const audioElement = document.getElementById('notificationSound');
+
+        socket.on('message', function (data) {
+            if (data.namapoli == dataIp.namaPoli) {
+                console.error('========================== farmasi ===========================');
+                document.getElementById('antrian').textContent = data.nomorAntrian;
+                document.getElementById('dataPatient').textContent = data.dataPatient;
+                document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
+                document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
+                document.getElementById('dataPatientName').textContent = data.patientName.toUpperCase();
+
+                const patientName = data.patientName;
+                const namapoli = data.namapoli;
+                const nomorAntrian = data.nomorAntrian.split('-');
+                const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
+
+                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. Atas nama ${patientName}`;
+
+                playTextToSpeech(teksAntrian);
+                
+            }
+
+            
+        });
+
+        function playTextToSpeech(text) {
+            if (!isNaN(text)) {
+                text = numberToWords(text);
+            }
+
+            if ('speechSynthesis' in window) {
+                var synthesis = window.speechSynthesis;
+
+                var utterance = new SpeechSynthesisUtterance(text);
+
+                utterance.lang = 'id-ID';
+                utterance.pitch = 1.2;
+                utterance.volume = 1;
+
+                var voices = synthesis.getVoices();
+                const microsoftVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Microsoft'));
+                const googleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Google'));
+                
+                if (googleVoice) {
+                    utterance.voice = googleVoice;
+                } else if (microsoftVoice) {
+                    utterance.voice = microsoftVoice;
+                } else {
+                    console.error('Suara Microsoft atau Google bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
+                }
+
+                synthesis.speak(utterance);
+            } else {
+                alert('Maaf, browser Anda tidak mendukung SpeechSynthesis API.');
+            }
+        }
+
+        function numberToWords(number) {
+            var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
+            var result = '';
+
+            var digits = number.toString().split('').map(Number);
+
+            for (var i = 0; i < digits.length; i++) {
+                result += words[digits[i]] + ' ';
+            }
+
+            return result.trim();
+        }
+    </script>
+</body>
+</html>
