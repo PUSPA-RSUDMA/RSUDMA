@@ -98,10 +98,11 @@
 
                 const patientName = data.patientName;
                 const namapoli = data.namapoli;
+                const namapoliRujuk = data.namapoliRujuk;
                 const nomorAntrian = data.nomorAntrian.split('-');
                 const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. Atas nama ${patientName}`;
+                const teksAntrian = `rujuk internal. ${namapoliRujuk}. ke ${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
 
                 playTextToSpeech(teksAntrian);
             }
@@ -122,6 +123,7 @@
                 utterance.lang = 'id-ID';
                 utterance.pitch = 1.2;
                 utterance.volume = 1;
+                utterance.rate = 0.9;
 
                 var voices = synthesis.getVoices();
                 const microsoftVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Microsoft'));

@@ -62,7 +62,7 @@
                 const nomorAntrian = data.nomorAntrian.split('-');
                 const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. Atas nama ${patientName}`;
+                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
 
                 playTextToSpeech(teksAntrian);
                 
@@ -82,6 +82,7 @@
                 var utterance = new SpeechSynthesisUtterance(text);
 
                 utterance.lang = 'id-ID';
+                utterance.rate = 0.9;
                 utterance.pitch = 1.2;
                 utterance.volume = 1;
 
