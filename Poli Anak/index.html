@@ -63,6 +63,8 @@
   	</div>
 
 	<script src="../js/socketio.js"></script>
+    <!-- <script src="../js/responsivevoice.js"></script> -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
 
 	<script>
@@ -84,9 +86,9 @@
                 const nomorAntrian = data.nomorAntrian.split('-');
                 const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. Atas nama ${patientName}`;
+                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. ${nomorAntrian[1]}.  Atas nama. ${patientName}`;
 
-                playTextToSpeech(teksAntrian);
+                playTextToSpeechEspeak(teksAntrian);
                 
             }else if(data.namapoli == dataIp.namaPoli && data.status == 'rujuk'){
                 console.error('========================== rujuk ===========================');
@@ -104,45 +106,25 @@
 
                 const teksAntrian = `rujuk internal. ${namapoliRujuk}. ke ${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
 
-                playTextToSpeech(teksAntrian);
+                playTextToSpeechEspeak(teksAntrian);
             }
 
             
         });
 
-        function playTextToSpeech(text) {
+        // function playTextToSpeechEspeak(text) {
+        //     const googleTTSURL = 'https://translate.googleapis.com/translate_tts?ie=UTF-8&tl=id-ID&client=tw-ob&q=' + encodeURIComponent(text);
+        //     audioElement.src = googleTTSURL;
+        // }
+
+        function playTextToSpeechEspeak(text) {
             if (!isNaN(text)) {
                 text = numberToWords(text);
             }
-
-            if ('speechSynthesis' in window) {
-                var synthesis = window.speechSynthesis;
-
-                var utterance = new SpeechSynthesisUtterance(text);
-
-                utterance.lang = 'id-ID';
-                utterance.pitch = 1.2;
-                utterance.volume = 1;
-                utterance.rate = 0.9;
-
-                var voices = synthesis.getVoices();
-                const microsoftVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Microsoft'));
-                const googleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Google'));
-                
-                if (googleVoice) {
-                    utterance.voice = googleVoice;
-                } else if (microsoftVoice) {
-                    utterance.voice = microsoftVoice;
-                } else {
-                    console.error('Suara Microsoft atau Google bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
-                }
-
-                synthesis.speak(utterance);
-            } else {
-                alert('Maaf, browser Anda tidak mendukung SpeechSynthesis API.');
-            }
+			var spacedText = text.split(' ').join('   ');
+            responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8,pitch: 1.2 });
         }
-
+        
         function numberToWords(number) {
             var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
             var result = '';

@@ -129,6 +129,8 @@
                 const microsoftVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Microsoft'));
                 const googleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Google'));
                 
+                console.log('Suara yang Tersedia:', voices.map(voice => voice.name).join(', '));
+                
                 if (googleVoice) {
                     utterance.voice = googleVoice;
                 } else if (microsoftVoice) {
@@ -136,6 +138,8 @@
                 } else {
                     console.error('Suara Microsoft atau Google bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
                 }
+
+                utterance.voice = voices[0];
 
                 synthesis.speak(utterance);
             } else {
