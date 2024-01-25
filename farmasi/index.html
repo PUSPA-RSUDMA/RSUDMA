@@ -42,6 +42,7 @@
 
 	<script src="../js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
+    <script src="../js/responsivevoice.js"></script>
 
 	<script>
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
@@ -64,44 +65,19 @@
 
                 const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
 
-                playTextToSpeech(teksAntrian);
+                playTextToSpeechEspeak(teksAntrian);
                 
             }
 
             
         });
 
-        function playTextToSpeech(text) {
+        function playTextToSpeechEspeak(text) {
             if (!isNaN(text)) {
                 text = numberToWords(text);
             }
-
-            if ('speechSynthesis' in window) {
-                var synthesis = window.speechSynthesis;
-
-                var utterance = new SpeechSynthesisUtterance(text);
-
-                utterance.lang = 'id-ID';
-                utterance.rate = 0.9;
-                utterance.pitch = 1.2;
-                utterance.volume = 1;
-
-                var voices = synthesis.getVoices();
-                const microsoftVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Microsoft'));
-                const googleVoice = voices.find(voice => voice.lang === 'id-ID' && voice.name.includes('Google'));
-                
-                if (googleVoice) {
-                    utterance.voice = googleVoice;
-                } else if (microsoftVoice) {
-                    utterance.voice = microsoftVoice;
-                } else {
-                    console.error('Suara Microsoft atau Google bahasa Indonesia tidak ditemukan. Menggunakan suara default.');
-                }
-
-                synthesis.speak(utterance);
-            } else {
-                alert('Maaf, browser Anda tidak mendukung SpeechSynthesis API.');
-            }
+			var spacedText = text.split(' ').join('   ');
+            responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8,pitch: 1.2 });
         }
 
         function numberToWords(number) {

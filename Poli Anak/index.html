@@ -63,8 +63,7 @@
   	</div>
 
 	<script src="../js/socketio.js"></script>
-    <!-- <script src="../js/responsivevoice.js"></script> -->
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=4XxtDSpw"></script>
+    <script src="../js/responsivevoice.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
 
 	<script>
@@ -111,11 +110,6 @@
 
             
         });
-
-        // function playTextToSpeechEspeak(text) {
-        //     const googleTTSURL = 'https://translate.googleapis.com/translate_tts?ie=UTF-8&tl=id-ID&client=tw-ob&q=' + encodeURIComponent(text);
-        //     audioElement.src = googleTTSURL;
-        // }
 
         function playTextToSpeechEspeak(text) {
             if (!isNaN(text)) {
