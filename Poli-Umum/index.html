@@ -61,6 +61,9 @@
     		</div>
    		</div>
   	</div>
+	<audio id="audioPlayer" autoplay>
+	<source src="../pustaka/1.mp3" type="audio/mpeg">
+	</audio>
 
 	<script src="../js/socketio.js"></script>
     <script src="../js/responsivevoice.js"></script>
@@ -70,6 +73,7 @@
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
         const socket = io(dataIp.ip, { transports: ['websocket'] });
 		const audioElement = document.getElementById('notificationSound');
+		const audioPlayer = document.getElementById("audioPlayer");
 
         socket.on('message', function (data) {
             if (data.namapoli == dataIp.namaPoli && data.status == 'kontrol') {
@@ -110,14 +114,20 @@
 
             
         });
+		
 
         function playTextToSpeechEspeak(text) {
-            if (!isNaN(text)) {
-                text = numberToWords(text);
-            }
-			var spacedText = text.split(' ').join('   ');
-            responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8,pitch: 1.2 });
-        }
+			audioPlayer.play();
+
+			setTimeout(function() {
+				if (!isNaN(text)) {
+					text = numberToWords(text);
+				}
+				var spacedText = text.split(' ').join('   ');
+				responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8, pitch: 1.2 });
+			}, 2500);
+		}
+
         
         function numberToWords(number) {
             var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
