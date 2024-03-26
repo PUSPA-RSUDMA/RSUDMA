@@ -141,6 +141,40 @@
 
             return result.trim();
         }
+
+		function getFormattedDate() {
+			const now = new Date();
+			const year = now.getFullYear();
+			let month = (now.getMonth() + 1).toString();
+			month = month.length === 1 ? '0' + month : month; 
+			let day = now.getDate().toString();
+			day = day.length === 1 ? '0' + day : day;
+			return year + '-' + month + '-' + day;
+		}
+
+		let currentDate = getFormattedDate();
+
+		function checkDateChange() {
+			const newDate = getFormattedDate();
+			if (newDate !== currentDate) {
+				document.getElementById('antrian').textContent = '000';
+				document.getElementById('dataPatient').textContent = '0';
+                document.getElementById('dataPatientDone').textContent = '0';
+                document.getElementById('dataPatientNoDone').textContent = '0';
+                document.getElementById('dataPatientName').textContent = 'Nama Pasien';
+
+				document.getElementById('antrianRujuk').textContent = '000';
+				document.getElementById('dataPatientRujuk').textContent = '0';
+                document.getElementById('dataPatientDoneRujuk').textContent = '0';
+                document.getElementById('dataPatientNoDoneRujuk').textContent = '0';
+                document.getElementById('dataPatientNameRujuk').textContent = 'Nama Pasien';
+				currentDate = newDate;
+			}
+		}
+
+		setInterval(checkDateChange, 1000);
+
+
     </script>
 </body>
 </html>
