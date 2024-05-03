@@ -64,9 +64,17 @@
 	<audio id="audioPlayer" autoplay>
 	<source src="../pustaka/1.mp3" type="audio/mpeg">
 	</audio>
+	<audio id="poliAnak" autoplay>
+	<source src="../pustaka/poli-anak/poli-anak.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="nomorAntrian" autoplay>
+	<source src="../pustaka/nomor-antrian.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="a23" autoplay>
+	<source src="../pustaka/poli-anak/a-23.mp3" type="audio/mpeg">
+	</audio>
 
 	<script src="../js/socketio.js"></script>
-    <script src="../js/responsivevoice.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
 
 	<script>
@@ -74,6 +82,9 @@
         const socket = io(dataIp.ip, { transports: ['websocket'] });
 		const audioElement = document.getElementById('notificationSound');
 		const audioPlayer = document.getElementById("audioPlayer");
+		const poliAnak = document.getElementById("poliAnak");
+		const nomorAntrian = document.getElementById("nomorAntrian");
+		const a23 = document.getElementById("a23");
 
         socket.on('message', function (data) {
             if (data.namapoli == dataIp.namaPoli && data.status == 'kontrol') {
@@ -89,9 +100,9 @@
                 const nomorAntrian = data.nomorAntrian.split('-');
                 const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. ${nomorAntrian[1]}.  Atas nama. ${patientName}`;
+                const teksAntrian = `${nomorAntrian[1]}`;
 
-                playTextToSpeechEspeak(teksAntrian);
+                playAudio(teksAntrian);
                 
             }else if(data.namapoli == dataIp.namaPoli && data.status == 'rujuk'){
                 console.error('========================== rujuk ===========================');
@@ -109,38 +120,30 @@
 
                 const teksAntrian = `rujuk internal. ${namapoliRujuk}. ke ${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
 
-                playTextToSpeechEspeak(teksAntrian);
+                playAudio(teksAntrian);
             }
 
             
         });
 		
 
-        function playTextToSpeechEspeak(text) {
+		function playAudio(text) {
 			audioPlayer.play();
 
 			setTimeout(function() {
-				if (!isNaN(text)) {
-					text = numberToWords(text);
+				if(text == '23') {
+					poliAnak.play();
+					setTimeout(function() {
+						nomorAntrian.play();
+						setTimeout(function() {
+							a23.play();
+						}, 2000); 
+					}, 2000); 
 				}
-				var spacedText = text.split(' ').join('   ');
-				responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8, pitch: 1.2 });
-			}, 2500);
+			}, 4500); 
 		}
 
-        
-        function numberToWords(number) {
-            var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
-            var result = '';
 
-            var digits = number.toString().split('').map(Number);
-
-            for (var i = 0; i < digits.length; i++) {
-                result += words[digits[i]] + ' ';
-            }
-
-            return result.trim();
-        }
 
 		function getFormattedDate() {
 			const now = new Date();
