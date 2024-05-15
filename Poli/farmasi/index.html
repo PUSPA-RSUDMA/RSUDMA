@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/style1.css">
 	<title>Display Antrian</title>
 	<script src="config.js"></script>
 </head>
@@ -19,7 +19,7 @@
 	</header>
 
 	<div class="queue-display queue1" id="queue1">
-		<h3>Pasien Rujuk Atau Kontrol</h3>
+		<h3>Pasien Farmasi</h3>
 		<hr>
 		<div class="queue-number" id="antrian">000</div>
 			<div class="queue-info">
@@ -39,35 +39,13 @@
 			</div>
     	</div>
   	</div>
-
-	<div class="queue-display queue2" id="queue2">
-    	<h3>Pasien Konsul Poli</h3>
-		<hr>
-    	<div class="queue-number" id="antrianRujuk">000</div>
-    		<div class="queue-info">
-      			<p class="text-pasien"><span id="dataPatientNameRujuk"></span></p>
-	  			<hr>
-	  			<div class="flex-container">
-					<div class="data-box">
-						<p class="data-paragraph">Telah Dilayani : <span id="dataPatientDoneRujuk"></span></p>
-					</div>
-					<div class="data-box2">
-						<p class="data-paragraph">Belum Dilayani : <span id="dataPatientNoDoneRujuk"></span></p>
-					</div>
-				</div>
-				<div class="data-box3">
-					<p>Jumlah Pasien : <span id="dataPatientRujuk"></span></p>
-				</div>
-    		</div>
-   		</div>
-  	</div>
 	<audio id="audioPlayer" autoplay>
 	<source src="../pustaka/1.mp3" type="audio/mpeg">
 	</audio>
 
 	<script src="../js/socketio.js"></script>
-    <script src="../js/responsivevoice.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
+    <script src="../js/responsivevoice.js"></script>
 
 	<script>
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
@@ -76,8 +54,8 @@
 		const audioPlayer = document.getElementById("audioPlayer");
 
         socket.on('message', function (data) {
-            if (data.namapoli == dataIp.namaPoli && data.status == 'kontrol') {
-                console.error('========================== kontrol ===========================');
+            if (data.namapoli == dataIp.namaPoli) {
+                console.error('========================== farmasi ===========================');
                 document.getElementById('antrian').textContent = data.nomorAntrian;
                 document.getElementById('dataPatient').textContent = data.dataPatient;
                 document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
@@ -89,32 +67,14 @@
                 const nomorAntrian = data.nomorAntrian.split('-');
                 const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}. ${nomorAntrian[1]}.  Atas nama. ${patientName}`;
+                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
 
                 playTextToSpeechEspeak(teksAntrian);
                 
-            }else if(data.namapoli == dataIp.namaPoli && data.status == 'rujuk'){
-                console.error('========================== rujuk ===========================');
-                document.getElementById('antrianRujuk').textContent = data.nomorAntrian;
-                document.getElementById('dataPatientRujuk').textContent = data.dataPatient;
-                document.getElementById('dataPatientDoneRujuk').textContent = data.dataPatientDone;
-                document.getElementById('dataPatientNoDoneRujuk').textContent = data.dataPatientNoDone;
-                document.getElementById('dataPatientNameRujuk').textContent = data.patientName.toUpperCase();
-
-                const patientName = data.patientName;
-                const namapoli = data.namapoli;
-                const namapoliRujuk = data.namapoliRujuk;
-                const nomorAntrian = data.nomorAntrian.split('-');
-                const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
-
-                const teksAntrian = `rujuk internal. ${namapoliRujuk}. ke ${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
-
-                playTextToSpeechEspeak(teksAntrian);
             }
 
             
         });
-		
 
         function playTextToSpeechEspeak(text) {
 			audioPlayer.play();
@@ -128,7 +88,6 @@
 			}, 2500);
 		}
 
-        
         function numberToWords(number) {
             var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
             var result = '';
@@ -141,7 +100,7 @@
 
             return result.trim();
         }
-
+		
 		function getFormattedDate() {
 			const now = new Date();
 			const year = now.getFullYear();
@@ -171,9 +130,6 @@
 				currentDate = newDate;
 			}
 		}
-
-		setInterval(checkDateChange, 1000);
-		
     </script>
 </body>
 </html>

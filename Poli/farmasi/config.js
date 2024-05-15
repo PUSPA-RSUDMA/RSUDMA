@@ -1,5 +1,5 @@
 
 var dataIp = {
   "ip": "http://192.168.34.211:3000",
-	"namaPoli": "Poli Sumenep"
+	"namaPoli": "farmasi bawah"
 };
