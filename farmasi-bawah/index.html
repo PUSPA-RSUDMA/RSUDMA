@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/style.css">
+	<title>Display Antrian</title>
+	<script src="config.js"></script>
+</head>
+<body>
+	<header class="header">
+		<img src="../pustaka/LOGO-RSUDMA.png" alt="Hospital Logo">
+		<div class="header-text">
+			<h1 class="hospital-name">RSUD Dr. H. Moh. Anwar</h1>
+			<p class="location">KABUPATEN SUMENEP</p>
+			<hr>
+			<h2><span id="namaPoli"></span></h2>
+		</div>
+	</header>
+
+	<div class="queue-display queue1" id="queue1">
+		<h3>Pasien Farmasi</h3>
+		<hr>
+		<div class="queue-number" id="antrian">000</div>
+			<div class="queue-info">
+				<p class="text-pasien"><span id="dataPatientName"></span></p>
+				<hr>
+				<div class="flex-container">
+					<div class="data-box">
+						<p class="data-paragraph">Telah Dilayani : <span id="dataPatientDone"></span></p>
+					</div>
+					<div class="data-box2">
+						<p class="data-paragraph">Belum Dilayani : <span id="dataPatientNoDone"></span></p>
+					</div>
+				</div>
+				<div class="data-box3">
+					<p>Jumlah Pasien : <span id="dataPatient"></span></p>
+				</div>
+			</div>
+    	</div>
+  	</div>
+
+	<script src="../js/socketio.js"></script>
+	<audio id="notificationSound" autoplay preload="auto"></audio>
+    <script src="../js/responsivevoice.js"></script>
+
+	<script>
+        document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
+        const socket = io(dataIp.ip, { transports: ['websocket'] });
+		const audioElement = document.getElementById('notificationSound');
+
+        socket.on('message', function (data) {
+            if (data.namapoli == dataIp.namaPoli) {
+                console.error('========================== farmasi ===========================');
+                document.getElementById('antrian').textContent = data.nomorAntrian;
+                document.getElementById('dataPatient').textContent = data.dataPatient;
+                document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
+                document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
+                document.getElementById('dataPatientName').textContent = data.patientName.toUpperCase();
+
+                const patientName = data.patientName;
+                const namapoli = data.namapoli;
+                const nomorAntrian = data.nomorAntrian.split('-');
+                const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
+
+                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
+
+                playTextToSpeechEspeak(teksAntrian);
+                
+            }
+
+            
+        });
+
+        function playTextToSpeechEspeak(text) {
+            if (!isNaN(text)) {
+                text = numberToWords(text);
+            }
+			var spacedText = text.split(' ').join('   ');
+            responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8,pitch: 1.2 });
+        }
+
+        function numberToWords(number) {
+            var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
+            var result = '';
+
+            var digits = number.toString().split('').map(Number);
+
+            for (var i = 0; i < digits.length; i++) {
+                result += words[digits[i]] + ' ';
+            }
+
+            return result.trim();
+        }
+		
+		function getFormattedDate() {
+			const now = new Date();
+			const year = now.getFullYear();
+			let month = (now.getMonth() + 1).toString();
+			month = month.length === 1 ? '0' + month : month; 
+			let day = now.getDate().toString();
+			day = day.length === 1 ? '0' + day : day;
+			return year + '-' + month + '-' + day;
+		}
+
+		let currentDate = getFormattedDate();
+
+		function checkDateChange() {
+			const newDate = getFormattedDate();
+			if (newDate !== currentDate) {
+				document.getElementById('antrian').textContent = '000';
+				document.getElementById('dataPatient').textContent = '0';
+                document.getElementById('dataPatientDone').textContent = '0';
+                document.getElementById('dataPatientNoDone').textContent = '0';
+                document.getElementById('dataPatientName').textContent = 'Nama Pasien';
+
+				document.getElementById('antrianRujuk').textContent = '000';
+				document.getElementById('dataPatientRujuk').textContent = '0';
+                document.getElementById('dataPatientDoneRujuk').textContent = '0';
+                document.getElementById('dataPatientNoDoneRujuk').textContent = '0';
+                document.getElementById('dataPatientNameRujuk').textContent = 'Nama Pasien';
+				currentDate = newDate;
+			}
+		}
+
+		setInterval(checkDateChange, 1000);
+    </script>
+</body>
+</html>
