@@ -25,26 +25,59 @@
 			<div class="queue-info">
 				<p class="text-pasien"><span id="dataPatientName"></span></p>
 				<hr>
-				<div class="flex-container">
-					<div class="data-box">
-						<p class="data-paragraph">Telah Dilayani : <span id="dataPatientDone"></span></p>
-					</div>
-					<div class="data-box2">
-						<p class="data-paragraph">Belum Dilayani : <span id="dataPatientNoDone"></span></p>
-					</div>
-				</div>
-				<div class="data-box3">
-					<p>Jumlah Pasien : <span id="dataPatient"></span></p>
-				</div>
 			</div>
     	</div>
   	</div>
+
+
+	<div class="queue-displayNew" id="queue2">
+		<h3>Data Pasien Farmasi</h3>
+		<hr>
+		<div class="queue-wrapper">
+			<div class="queue-left">
+				<h4>Obat Diprocess</h4>
+				<hr>
+				<div class="scroll-list" id="scrollListLeft">
+				</div>
+			</div>
+			<div class="separator"></div>
+			<div class="queue-right">
+				<h4>Obat Selesai</h4>
+				<hr>
+				<div class="scroll-list" id="scrollListRight">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 
 	<script src="../js/socketio.js"></script>
 	<audio id="notificationSound" autoplay preload="auto"></audio>
     <script src="../js/responsivevoice.js"></script>
 
 	<script>
+
+		function createQueueItems(data, targetId) {
+			const scrollList = document.getElementById(targetId);
+			scrollList.innerHTML = "";
+
+			data.forEach((item) => {
+				const queueItem = document.createElement("div");
+				queueItem.classList.add("queue-item");
+
+				const cleanNamaPasien = item.namaPasien.replace(/'/g, "");
+				const cleanLayanan = item.layanan.replace(/'/g, "");
+
+				queueItem.innerHTML = `
+					<div class="patient-name">${cleanNamaPasien}</div>
+					<div class="service">${cleanLayanan}</div>
+				`;
+				scrollList.appendChild(queueItem);
+			});
+		}
+
+
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
         const socket = io(dataIp.ip, { transports: ['websocket'] });
 		const audioElement = document.getElementById('notificationSound');
@@ -53,19 +86,25 @@
             if (data.namapoli == dataIp.namaPoli) {
                 console.error('========================== farmasi ===========================');
                 document.getElementById('antrian').textContent = data.nomorAntrian;
-                document.getElementById('dataPatient').textContent = data.dataPatient;
-                document.getElementById('dataPatientDone').textContent = data.dataPatientDone;
-                document.getElementById('dataPatientNoDone').textContent = data.dataPatientNoDone;
                 document.getElementById('dataPatientName').textContent = data.patientName.toUpperCase();
 
-                const patientName = data.patientName;
-                const namapoli = data.namapoli;
+                const patientName = data.patientName.toLowerCase();
                 const nomorAntrian = data.nomorAntrian.split('-');
                 const spacedNomorAntrian = nomorAntrian[0].split('').join(' ');
 
-                const teksAntrian = `${namapoli}. Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
+                const teksAntrian = `Nomor antrian ${spacedNomorAntrian}.${nomorAntrian[1]}. Atas nama ${patientName}`;
 
                 playTextToSpeechEspeak(teksAntrian);
+
+				if (data.data && Array.isArray(data.data)) {
+					dataPatientFarmasi = data.data;
+					createQueueItems(dataPatientFarmasi, "scrollListLeft");
+				}
+
+				if (data.dataSelesai && Array.isArray(data.dataSelesai)) {
+					dataPatientFarmasiSelesai = data.dataSelesai;
+					createQueueItems(dataPatientFarmasiSelesai, "scrollListRight");
+				}
                 
             }
 
@@ -109,15 +148,9 @@
 			const newDate = getFormattedDate();
 			if (newDate !== currentDate) {
 				document.getElementById('antrian').textContent = '000';
-				document.getElementById('dataPatient').textContent = '0';
-                document.getElementById('dataPatientDone').textContent = '0';
-                document.getElementById('dataPatientNoDone').textContent = '0';
                 document.getElementById('dataPatientName').textContent = 'Nama Pasien';
 
 				document.getElementById('antrianRujuk').textContent = '000';
-				document.getElementById('dataPatientRujuk').textContent = '0';
-                document.getElementById('dataPatientDoneRujuk').textContent = '0';
-                document.getElementById('dataPatientNoDoneRujuk').textContent = '0';
                 document.getElementById('dataPatientNameRujuk').textContent = 'Nama Pasien';
 				currentDate = newDate;
 			}

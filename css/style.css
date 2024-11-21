@@ -63,11 +63,28 @@ body {
   background-color: #3498db;
 }
 
+.queue-displayNew {
+  text-align: center;
+  font-family: 'Poetsen One', sans-serif;
+  color: #000000;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 95%; 
+  max-width: 600px;
+  margin: 10px 0px 5px 5px;
+  background-color: #3498db;
+}
+
 h2 {
   margin: -5px 0 0px 0;
 }
 h3 {
   margin: 5px 0 -5px 0;
+}
+
+h4 {
+  font-size: 18px;
+  margin: 0;
 }
 
 .hr-stylish {
@@ -84,6 +101,12 @@ h3 {
   border: none;
   height: 1px;
   background: linear-gradient(to right, #eb3f3f, #ffffff, #eb3f3f);
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #3CB371, #000000, #3CB371);
 }
 
 .queue1 hr {
@@ -163,6 +186,103 @@ h3 {
   .queue-display {
     width: 60%;
     margin-bottom: 0;
+  }
+}
+
+
+.queue-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  height: 400px;
+  overflow: hidden;
+  align-content: center;
+}
+
+.separator {
+  width: 1px;
+  background-color: #ccc;
+  height: 100%;
+}
+
+.queue-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #e8f5e9;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #2e7d32;
+  font-weight: bold;
+  animation: scroll 10s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.queue-item .patient-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1b5e20;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.queue-item .service {
+  color: #d32f2f;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scroll-list {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.queue-left{
+  margin: 0 0 0 20px ;
+}
+
+.queue-right{
+  margin: 0 20px 0 0 ;
+}
+
+@media screen and (max-width: 600px) {
+  .queue-item {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .queue-item .patient-name {
+    font-size: 14px;
+  }
+
+  .queue-item .service {
+    font-size: 12px;
+  }
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  90% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(-100%);
   }
 }
 
