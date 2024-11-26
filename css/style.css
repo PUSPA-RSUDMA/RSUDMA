@@ -57,8 +57,7 @@ body {
   color: #000000;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 95%; 
-  max-width: 600px;
+  width: 95%;
   margin: 10px 0px 5px 5px;
   background-color: #3498db;
 }
@@ -69,8 +68,7 @@ body {
   color: #000000;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 95%; 
-  max-width: 600px;
+  width: 95%;
   margin: 10px 0px 5px 5px;
   background-color: #3498db;
 }
@@ -242,20 +240,20 @@ hr {
 
 .scroll-list {
   width: 100%;
-  position: relative;
   overflow: hidden;
   height: 100%;
-  display: flex;
   flex-direction: column;
 }
 
 
 .queue-left{
   margin: 0 0 0 20px ;
+  width: 50vh;
 }
 
 .queue-right{
   margin: 0 20px 0 0 ;
+  width: 50vh;
 }
 
 @media screen and (max-width: 600px) {
@@ -271,6 +269,19 @@ hr {
   .queue-item .service {
     font-size: 12px;
   }
+
+  .queue-left{
+    margin: 0 0 0 20px ;
+    max-width: 80vh;
+    width: 80vh;
+  }
+  
+  .queue-right{
+    margin: 0 20px 0 0 ;
+    width: 80vh;
+    max-width: 80vh;
+  }
+
 }
 
 
