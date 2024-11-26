@@ -18,18 +18,27 @@
 		</div>
 	</header>
 
-	<div class="queue-display queue1" id="queue1">
-		<h3>Pasien Farmasi</h3>
-		<hr>
-		<p class="text-pasien">Ruang : <span id="dataPatientRuangan"></span></p>
-		<hr>
-		<div class="queue-info">
-			<p class="text-pasien"><span id="dataPatientName"></span></p>
-			<hr>
+	<div class="queue-displayNew" id="queue2">
+		<div class="queue-wrapper">
+			<div class="queue-left">
+				<h4>Obat Diprocess</h4>
+				<hr>
+				<div class="scroll-list" id="scrollListLeft">
+				</div>
+			</div>
+			<div class="separator"></div>
+			<div class="queue-right">
+				<h4>Obat Selesai</h4>
+				<hr>
+				<div class="scroll-list" id="scrollListRight">
+				</div>
+			</div>
 		</div>
-  	</div>
+	</div>
+
+
 	<audio id="audioPlayer" autoplay>
-	<source src="../pustaka/1.mp3" type="audio/mpeg">
+		<source src="../pustaka/1.mp3" type="audio/mpeg">
 	</audio>
 
 	<script src="../js/socketio.js"></script>
@@ -37,23 +46,52 @@
     <script src="../js/responsivevoice.js"></script>
 
 	<script>
+		
+
         document.getElementById('namaPoli').textContent = dataIp.namaPoli.toUpperCase();
         const socket = io(dataIp.ip, { transports: ['websocket'] });
 		const audioElement = document.getElementById('notificationSound');
 		const audioPlayer = document.getElementById("audioPlayer");
 
+		function createQueueItems(data, targetId) {
+			const scrollList = document.getElementById(targetId);
+			scrollList.innerHTML = "";
+
+			data.forEach((item) => {
+				const queueItem = document.createElement("div");
+				queueItem.classList.add("queue-item");
+
+				const cleanNamaPasien = item.namaPasien.replace(/'/g, "");
+				const cleanLayanan = item.layanan.replace(/'/g, "");
+
+				queueItem.innerHTML = `
+					<div class="patient-name">${cleanNamaPasien}</div>
+					<div class="service">${cleanLayanan}</div>
+				`;
+				scrollList.appendChild(queueItem);
+			});
+		}
+
+
         socket.on('message', function (data) {
             if (data.namapoli == dataIp.namaPoli) {
-                document.getElementById('dataPatientName').textContent = data.patientName.toUpperCase();
-				document.getElementById('dataPatientRuangan').textContent = data.ruangan.toUpperCase();
+                console.error('========================== farmasi ===========================');
+                const patientName = data.patientName.toLowerCase();
+                const ruanganRanap = data.ruangan;
 
-                const patientName = data.patientName;
-                const namapoli = data.namapoli;
-				const ruangan = data.ruangan;
-
-                const teksAntrian = `${namapoli}. Ruangan ${ruangan}. Atas nama ${patientName}`;
+                const teksAntrian = `Atas nama ${patientName}. Ruangan ${ruanganRanap}`;
 
                 playTextToSpeechEspeak(teksAntrian);
+
+				if (data.data && Array.isArray(data.data)) {
+					dataPatientFarmasi = data.data;
+					createQueueItems(dataPatientFarmasi, "scrollListLeft");
+				}
+
+				if (data.dataSelesai && Array.isArray(data.dataSelesai)) {
+					dataPatientFarmasiSelesai = data.dataSelesai;
+					createQueueItems(dataPatientFarmasiSelesai, "scrollListRight");
+				}
                 
             }
 
@@ -68,9 +106,9 @@
 					text = numberToWords(text);
 				}
 				var spacedText = text.split(' ').join('   ');
-				responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8, pitch: 1.2 });
+				responsiveVoice.speak(spacedText, 'Indonesian Female', { rate: 0.8,pitch: 1.2 });
 			}, 2500);
-		}
+        }
 
         function numberToWords(number) {
             var words = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
@@ -100,10 +138,16 @@
 		function checkDateChange() {
 			const newDate = getFormattedDate();
 			if (newDate !== currentDate) {
+				document.getElementById('antrian').textContent = '000';
                 document.getElementById('dataPatientName').textContent = 'Nama Pasien';
+
+				document.getElementById('antrianRujuk').textContent = '000';
+                document.getElementById('dataPatientNameRujuk').textContent = 'Nama Pasien';
 				currentDate = newDate;
 			}
 		}
+
+		setInterval(checkDateChange, 1000);
     </script>
 </body>
 </html>
