@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Notifikasi</title>
+</head>
+<body>
+
+	<audio id="audioPlayer" autoplay>
+	<source src="1.mp3" type="audio/mpeg">
+	</audio>
+
+	<script src="socketio.js"></script>
+	<audio id="notificationSound" autoplay preload="auto"></audio>
+
+	<script>
+        const socket = io('http://192.168.34.211:3000', { transports: ['websocket'] });
+		const audioElement = document.getElementById('notificationSound');
+		const audioPlayer = document.getElementById("audioPlayer");
+
+        socket.on('message', function (data) {
+            if (data.farmasi == 'farmasiRanap') {
+				audioPlayer.play();
+                
+            }
+
+            
+        });
+		
+
+    </script>
+</body>
+</html>
